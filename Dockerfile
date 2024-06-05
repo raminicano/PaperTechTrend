@@ -11,7 +11,7 @@ WORKDIR '/root'
 RUN git clone https://github.com/raminicano/PaperTechTrend.git /root/app1 && \
     git clone https://github.com/wjdguswn1203/PaperTechTrend.git /root/app2 && \
     cd /root/app1 && npm install && \
-    cd /root/app2 && npm install && \
+    cd /root/app2/server && npm install && \
     npm install -g nodemon
 
 # 5. nodemon process start
