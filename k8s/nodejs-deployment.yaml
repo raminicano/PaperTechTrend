@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: papertechtrend
-  namespace: paper-space
   labels:
     app: papertechtrend
 spec:
@@ -17,7 +16,7 @@ spec:
     spec:
       containers:
         - name: papertechtrend
-          image: raminicano/papertechtrend
+          image: raminicano/ptt
           ports:
             - containerPort: 8000
             - containerPort: 8500
@@ -53,10 +52,7 @@ spec:
                   name: papertechtrend-secrets
                   key: NODE_URL2
             - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: papertechtrend-secrets
-                  key: DB_HOST
+              value: "nginx-proxy"
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -72,22 +68,5 @@ spec:
                 secretKeyRef:
                   name: papertechtrend-secrets
                   key: DB_NAME
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-db-access
-  namespace: paper-space
-spec:
-  podSelector:
-    matchLabels:
-      app: papertechtrend
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-    ports:
-    - protocol: TCP
-      port: 3306
+            - name: DB_PORT
+              value: "3306"
