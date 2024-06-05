@@ -9,7 +9,7 @@ app.set('views', './public');    // 뷰 파일 경로 설정
 
 
 
-app.set('port', process.env.PORT || 8500)
+app.set('port', process.env.PORT1 || 8500)
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

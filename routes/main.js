@@ -7,7 +7,8 @@ const axios = require('axios');
 const path = require('path');
 const { log } = require('console');
 
-const PORT = process.env.PORT || 8500;
+const PORT1 = process.env.PORT1 || 8500;
+const PORT2 = process.env.PORT2 || 8000;
 const FASTAPI_URL1 = process.env.FASTAPI_URL1
 const FASTAPI_URL2 = process.env.FASTAPI_URL2
 const NODE_URL1 = process.env.NODE_URL1

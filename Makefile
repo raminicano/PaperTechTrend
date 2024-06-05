@@ -1,11 +1,11 @@
 build:
-	docker build -t nodejs .
+	docker build -t papertech-app .
 run:
-	docker run -it -d -p 8500:8500 --name nodejs --env-file .env nodejs
+	docker run -it -d -p 8500:8500 -p 8000:8000 --name papertech-app --env-file .env papertech-app
 exec:
-	docker exec -it nodejs /bin/bash
+	docker exec -it papertech-app /bin/bash
 logs:
-	docker logs nodejs
+	docker logs papertech-app
 ps:
 	docker ps -a
 img:
