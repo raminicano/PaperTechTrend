@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: papertechtrend-service
+  namespace: paper-space
 spec:
   selector:
     app: papertechtrend
