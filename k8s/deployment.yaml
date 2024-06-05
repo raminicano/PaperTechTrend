@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: papertechtrend
+  namespace: paper-space
+  labels:
+    app: papertechtrend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: papertechtrend
+  template:
+    metadata:
+      labels:
+        app: papertechtrend
+    spec:
+      containers:
+        - name: papertechtrend
+          image: raminicano/papertechtrend
+          ports:
+            - containerPort: 8000
+            - containerPort: 8500
+          env:
+            - name: FASTAPI_URL1
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: FASTAPI_URL1
+            - name: FASTAPI_URL2
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: FASTAPI_URL2
+            - name: PORT1
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: PORT1
+            - name: PORT2
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: PORT2
+            - name: NODE_URL1
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: NODE_URL1
+            - name: NODE_URL2
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: NODE_URL2
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: papertechtrend-secrets
+                  key: DB_NAME
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-db-access
+  namespace: paper-space
+spec:
+  podSelector:
+    matchLabels:
+      app: papertechtrend
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 3306

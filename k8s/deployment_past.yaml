@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejsapi
+  labels:
+    app: nodejsapi
+spec:
+  replicas: 1   # three pod
+  selector:
+    matchLabels:
+      app: nodejsapi
+  template:
+    metadata:
+      labels:
+        app: nodejsapi
+    spec:
+      containers:
+        - name: nodejsapi
+          image: raminicano/nodejsapi
+          ports:
+            - containerPort: 8500   # Container port(pod port)
+          env:
+            - name: FASTAPI_URL
+              valueFrom:
+                secretKeyRef:
+                  name: nodejs-secret
+                  key: FASTAPI_URL
+            - name: NODE_URL1
+              valueFrom:
+                secretKeyRef:
+                  name: nodejs-secret
+                  key: NODE_URL1
+            - name: NODE_URL2
+              valueFrom:
+                secretKeyRef:
+                  name: nodejs-secret
+                  key: NODE_URL2
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: nodejs-secret
+                  key: PORT
+       
