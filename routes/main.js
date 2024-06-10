@@ -65,7 +65,7 @@ router.get('/getMeta', async (req, res) => {
     const { searchword } = req.query;
 
     try {
-        const response = await axios.get(`${FASTAPI_URL}/getMeta`, {
+        const response = await axios.get(`${FASTAPI_URL1}/getMeta`, {
             params: { searchword }
         });
         res.json(response.data);
@@ -78,7 +78,7 @@ router.get('/getMeta', async (req, res) => {
 // wea 데이터 저장
 router.post('/saveWea', async (req, res) => {
     try {
-        const response = await axios.post(`${FASTAPI_URL}/saveWea`, req.body);
+        const response = await axios.post(`${FASTAPI_URL1}/saveWea`, req.body);
         res.json(response.data);
     } catch (error) {
         console.error('Error saving data to FastAPI:', error);
